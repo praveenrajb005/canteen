@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Canteen - User Dashboard</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Smart Canteen</h2>
+            </div>
+            <div class="nav-menu">
+                <div class="nav-item">
+                    <span id="welcome-user">Welcome, User!</span>
+                </div>
+                <div class="nav-item">
+                    <button id="logout-btn" class="btn btn-secondary">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="#menu" class="sidebar-link active" data-section="menu">Menu</a></li>
+                <li><a href="#cart" class="sidebar-link" data-section="cart">Cart (<span id="cart-count">0</span>)</a></li>
+                <li><a href="#orders" class="sidebar-link" data-section="orders">My Orders</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <!-- Menu Section -->
+            <div id="menu-section" class="content-section active">
+                <div class="section-header">
+                    <h2>Menu</h2>
+                    <div class="category-filters">
+                        <button class="category-btn active" data-category="all">All</button>
+                        <button class="category-btn" data-category="Main Course">Main Course</button>
+                        <button class="category-btn" data-category="Curry">Curry</button>
+                        <button class="category-btn" data-category="Bread">Bread</button>
+                        <button class="category-btn" data-category="Snacks">Snacks</button>
+                        <button class="category-btn" data-category="Beverages">Beverages</button>
+                        <button class="category-btn" data-category="Desserts">Desserts</button>
+                    </div>
+                </div>
+                
+                <div id="products-grid" class="products-grid">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Cart Section -->
+            <div id="cart-section" class="content-section">
+                <div class="section-header">
+                    <h2>Shopping Cart</h2>
+                </div>
+                
+                <div id="cart-items" class="cart-items">
+                    <!-- Cart items will be loaded here -->
+                </div>
+                
+                <div id="cart-summary" class="cart-summary">
+                    <div class="total-amount">
+                        <h3>Total: ₹<span id="total-amount">0.00</span></h3>
+                    </div>
+                    <div class="special-instructions">
+                        <label for="instructions">Special Instructions:</label>
+                        <textarea id="instructions" placeholder="Any special requests..."></textarea>
+                    </div>
+                    <button id="place-order-btn" class="btn btn-primary" disabled>Place Order</button>
+                </div>
+            </div>
+
+            <!-- Orders Section -->
+            <div id="orders-section" class="content-section">
+                <div class="section-header">
+                    <h2>My Orders</h2>
+                </div>
+                
+                <div id="orders-list" class="orders-list">
+                    <!-- Orders will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/user-dashboard.js"></script>
+    <script>
+        // Initialize user dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            checkUserAuthentication();
+            initializeUserDashboard();
+        });
+    </script>
+</body>
+</html>

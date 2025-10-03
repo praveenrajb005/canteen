@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Canteen - Admin Dashboard</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Smart Canteen - Admin</h2>
+            </div>
+            <div class="nav-menu">
+                <div class="nav-item">
+                    <span id="welcome-admin">Welcome, Admin!</span>
+                </div>
+                <div class="nav-item">
+                    <button id="logout-btn" class="btn btn-secondary">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="#dashboard" class="sidebar-link active" data-section="dashboard">Dashboard</a></li>
+                <li><a href="#products" class="sidebar-link" data-section="products">Products</a></li>
+                <li><a href="#orders" class="sidebar-link" data-section="orders">Orders</a></li>
+                <li><a href="#users" class="sidebar-link" data-section="users">Users</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <!-- Dashboard Overview Section -->
+            <div id="dashboard-section" class="content-section active">
+                <div class="section-header">
+                    <h2>Dashboard Overview</h2>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Orders</h3>
+                        <p id="total-orders">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Pending Orders</h3>
+                        <p id="pending-orders">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Products</h3>
+                        <p id="total-products">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Users</h3>
+                        <p id="total-users">0</p>
+                    </div>
+                </div>
+                
+                <div class="recent-orders">
+                    <h3>Recent Orders</h3>
+                    <div id="recent-orders-list">
+                        <!-- Recent orders will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Management Section -->
+            <div id="products-section" class="content-section">
+                <div class="section-header">
+                    <h2>Product Management</h2>
+                    <button id="add-product-btn" class="btn btn-primary">Add New Product</button>
+                </div>
+                
+                <div id="products-table" class="table-container">
+                    <!-- Products table will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Orders Management Section -->
+            <div id="orders-section" class="content-section">
+                <div class="section-header">
+                    <h2>Order Management</h2>
+                    <div class="order-filters">
+                        <select id="status-filter">
+                            <option value="all">All Orders</option>
+                            <option value="PENDING">Pending</option>
+                            <option value="CONFIRMED">Confirmed</option>
+                            <option value="PREPARING">Preparing</option>
+                            <option value="READY">Ready</option>
+                            <option value="COMPLETED">Completed</option>
+                            <option value="CANCELLED">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div id="orders-table" class="table-container">
+                    <!-- Orders table will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Users Management Section -->
+            <div id="users-section" class="content-section">
+                <div class="section-header">
+                    <h2>User Management</h2>
+                </div>
+                
+                <div id="users-table" class="table-container">
+                    <!-- Users table will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Product Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-title">Add New Product</h2>
+            <form id="product-form">
+                <div class="form-group">
+                    <label for="product-name">Product Name</label>
+                    <input type="text" id="product-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-description">Description</label>
+                    <textarea id="product-description" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="product-price">Price (₹)</label>
+                    <input type="number" id="product-price" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-category">Category</label>
+                    <select id="product-category" required>
+                        <option value="">Select Category</option>
+                        <option value="Main Course">Main Course</option>
+                        <option value="Curry">Curry</option>
+                        <option value="Bread">Bread</option>
+                        <option value="Snacks">Snacks</option>
+                        <option value="Beverages">Beverages</option>
+                        <option value="Desserts">Desserts</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="product-available">Available</label>
+                    <input type="checkbox" id="product-available" checked>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="cancel-btn" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin-dashboard.js"></script>
+    <script>
+        // Initialize admin dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAdminAuthentication();
+            initializeAdminDashboard();
+        });
+    </script>
+</body>
+</html>
