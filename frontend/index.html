@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Ordering App</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>FoodOrder</h2>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#" class="nav-link" onclick="showHome()">Home</a>
+                <a href="#" class="nav-link" onclick="showOrders()" id="orders-link" style="display: none;">My Orders</a>
+                <a href="#" class="nav-link" onclick="showAdmin()" id="admin-link" style="display: none;">Admin</a>
+                <a href="#" class="nav-link" onclick="logout()" id="logout-link" style="display: none;">Logout</a>
+                <a href="#" class="nav-link" onclick="showLogin()" id="login-link">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- Welcome Section -->
+        <section id="welcome-section" class="welcome">
+            <div class="welcome-content">
+                <h1>Welcome to FoodOrder</h1>
+                <p>Delicious food delivered to your doorstep</p>
+                <button class="btn-primary" onclick="showLogin()">Get Started</button>
+            </div>
+        </section>
+
+        <!-- Login Section -->
+        <section id="login-section" class="auth-section" style="display: none;">
+            <div class="auth-container">
+                <div class="auth-form">
+                    <h2>Login</h2>
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="login-username">Username:</label>
+                            <input type="text" id="login-username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password:</label>
+                            <input type="password" id="login-password" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Login</button>
+                        <div id="login-error" class="error-message"></div>
+                    </form>
+                    <p class="auth-switch">Don't have an account? <a href="#" onclick="showRegister()">Register here</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Register Section -->
+        <section id="register-section" class="auth-section" style="display: none;">
+            <div class="auth-container">
+                <div class="auth-form">
+                    <h2>Register</h2>
+                    <form id="register-form">
+                        <div class="form-group">
+                            <label for="register-username">Username:</label>
+                            <input type="text" id="register-username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-email">Email:</label>
+                            <input type="email" id="register-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-password">Password:</label>
+                            <input type="password" id="register-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-fullname">Full Name:</label>
+                            <input type="text" id="register-fullname" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-address">Address:</label>
+                            <textarea id="register-address"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-phone">Phone Number:</label>
+                            <input type="tel" id="register-phone">
+                        </div>
+                        <button type="submit" class="btn-primary">Register</button>
+                        <div id="register-error" class="error-message"></div>
+                    </form>
+                    <p class="auth-switch">Already have an account? <a href="#" onclick="showLogin()">Login here</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Food Menu Section -->
+        <section id="food-section" class="food-section" style="display: none;">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Menu</h2>
+                    <div class="search-container">
+                        <input type="text" id="food-search" placeholder="Search for food...">
+                        <button onclick="searchFood()">Search</button>
+                    </div>
+                </div>
+                
+                <div class="category-filter">
+                    <button class="category-btn active" onclick="filterByCategory('')">All</button>
+                    <button class="category-btn" onclick="filterByCategory('appetizer')">Appetizers</button>
+                    <button class="category-btn" onclick="filterByCategory('main')">Main Course</button>
+                    <button class="category-btn" onclick="filterByCategory('dessert')">Desserts</button>
+                    <button class="category-btn" onclick="filterByCategory('beverage')">Beverages</button>
+                </div>
+
+                <div id="food-grid" class="food-grid">
+                    <!-- Food items will be loaded here -->
+                </div>
+
+                <!-- Cart Section -->
+                <div id="cart-section" class="cart-section" style="display: none;">
+                    <h3>Your Cart</h3>
+                    <div id="cart-items"></div>
+                    <div class="cart-total">
+                        <strong>Total: $<span id="cart-total">0.00</span></strong>
+                    </div>
+                    <button class="btn-primary" onclick="showCheckout()">Proceed to Checkout</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Checkout Section -->
+        <section id="checkout-section" class="checkout-section" style="display: none;">
+            <div class="container">
+                <h2>Checkout</h2>
+                <form id="checkout-form">
+                    <div class="form-group">
+                        <label for="delivery-address">Delivery Address:</label>
+                        <textarea id="delivery-address" required></textarea>
+                    </div>
+                    <div class="order-summary">
+                        <h3>Order Summary</h3>
+                        <div id="order-summary-items"></div>
+                        <div class="total">
+                            <strong>Total: $<span id="order-total">0.00</span></strong>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary">Place Order</button>
+                    <button type="button" class="btn-secondary" onclick="backToMenu()">Back to Menu</button>
+                    <div id="checkout-error" class="error-message"></div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Orders Section -->
+        <section id="orders-section" class="orders-section" style="display: none;">
+            <div class="container">
+                <h2>My Orders</h2>
+                <div id="orders-list">
+                    <!-- Orders will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Section -->
+        <section id="admin-section" class="admin-section" style="display: none;">
+            <div class="container">
+                <h2>Admin Panel</h2>
+                <div class="admin-tabs">
+                    <button class="tab-btn active" onclick="showAdminTab('foods')">Food Management</button>
+                    <button class="tab-btn" onclick="showAdminTab('orders')">Order Management</button>
+                    <button class="tab-btn" onclick="showAdminTab('users')">User Management</button>
+                </div>
+
+                <!-- Food Management Tab -->
+                <div id="admin-foods" class="admin-tab-content">
+                    <div class="admin-actions">
+                        <button class="btn-primary" onclick="showAddFoodForm()">Add New Food</button>
+                    </div>
+                    <div id="admin-food-list">
+                        <!-- Admin food list will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Order Management Tab -->
+                <div id="admin-orders" class="admin-tab-content" style="display: none;">
+                    <div id="admin-order-list">
+                        <!-- Admin order list will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- User Management Tab -->
+                <div id="admin-users" class="admin-tab-content" style="display: none;">
+                    <div id="admin-user-list">
+                        <!-- Admin user list will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Add Food Modal -->
+    <div id="add-food-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Food</h3>
+                <span class="close" onclick="closeAddFoodModal()">&times;</span>
+            </div>
+            <form id="add-food-form">
+                <div class="form-group">
+                    <label for="food-name">Name:</label>
+                    <input type="text" id="food-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="food-description">Description:</label>
+                    <textarea id="food-description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="food-price">Price:</label>
+                    <input type="number" id="food-price" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="food-category">Category:</label>
+                    <select id="food-category" required>
+                        <option value="">Select Category</option>
+                        <option value="appetizer">Appetizer</option>
+                        <option value="main">Main Course</option>
+                        <option value="dessert">Dessert</option>
+                        <option value="beverage">Beverage</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="food-image">Image URL:</label>
+                    <input type="url" id="food-image">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Add Food</button>
+                    <button type="button" class="btn-secondary" onclick="closeAddFoodModal()">Cancel</button>
+                </div>
+                <div id="add-food-error" class="error-message"></div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
